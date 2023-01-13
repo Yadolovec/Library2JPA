@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Book info</title>
+</head>
+<body>
+
+
+    <a>ID: </a>
+    <a th:text="${book.getId()}">ID</a>
+    <br/>
+    <br/>
+
+    <a>Name: </a>
+    <br/>
+    <a th:text="${book.getBookName()}">NAME</a>
+    <br/>
+    <br/>
+
+    <a>Author: </a>
+    <br/>
+    <a th:text="${book.getAuthor()}">AUTHOR</a>
+    <br/>
+    <br/>
+
+    <a>Year of publication: </a>
+    <a th:text="${book.getYearOfPublication()}">YEAR</a>
+    <br/>
+    <br/>
+
+    <div th:if="${book.getPerson_id()!=null}">
+        <a>Book is taken by: </a>
+        <a th:text="${person.getName()}">NAME PERSON</a>
+    </div>
+    <form   th:if="${book.getPerson_id()!=null}"
+            th:method="PATCH", th:action="@{/lib/books/{id}/free(id=${book.getId()})}" >
+        <br/>
+        <input type="submit" value="FREE this book"/>
+    </form>
+
+    <div th:unless="${book.getPerson_id()!=null}">
+        <a>Book is free</a>
+    </div>
+
+    <form th:method="PATCH"
+          th:action="@{/lib/books/{id}/newOwner(id=${book.getId()})}"
+          th:unless="${book.getPerson_id()!=null}">
+        <label for="person">Choose the worthy</label>
+        <select id="person" th:object="${newOwner}" th:field="*{person_id}">
+            <option th:each="newOwner : ${people}" th:value="${newOwner.getPerson_id()}" th:text="${newOwner.getName()}">
+                CHOOSE NEW OWNER
+            </option>
+        </select>
+
+        <input type="submit" value="Add owner"/>
+    </form>
+
+
+
+
+
+    <hr/>
+    <form th:method="GET", th:action="@{/lib/books/{id}/delete(id=${book.getId()})}" >
+      <input type="submit" value="DElete"/>
+    </form>
+
+    <form th:method="GET", th:action="@{/lib/books/{id}/edit(id=${book.getId()})}" >
+      <input type="submit" value="EDit"/>
+    </form>
+</body>
+</html>
