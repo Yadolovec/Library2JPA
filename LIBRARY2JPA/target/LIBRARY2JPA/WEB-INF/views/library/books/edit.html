@@ -31,11 +31,7 @@
   <input id="yearOfPublication" type="text" th:field="*{yearOfPublication}"/>
   <br/>
 
-  <label for="person_id">Enter person_id:</label>
-  <br/>
-  <div style="color: red" th:if="${#fields.hasErrors('person_id')}" th:errors="*{person_id}">person_id ERROR</div>
-  <input id="person_id" type="text" th:field="*{person_id}"/>
-  <br/>
+
 
   <hr/>
   <input type="submit" value="EDit book"/>

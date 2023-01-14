@@ -6,7 +6,7 @@
 </head>
 <body>
   <a>ID: </a>
-  <a th:text="${person.getPerson_id()}">ID</a>
+  <a th:text="${person.getId()}">ID</a>
   <br/>
 
   <a th:text="${person.getName()}">NAME</a>
@@ -28,11 +28,11 @@
   </some>
 
   <hr/>
-<form th:method="GET", th:action="@{/lib/people/{id}/delete(id=${person.getPerson_id()})}" >
+<form th:method="GET", th:action="@{/lib/people/{id}/delete(id=${person.getId()})}" >
     <input type="submit" value="DElete"/>
 </form>
 
-<form th:method="GET", th:action="@{/lib/people/{id}/edit(id=${person.getPerson_id()})}" >
+<form th:method="GET", th:action="@{/lib/people/{id}/edit(id=${person.getId()})}" >
   <input type="submit" value="EDit"/>
 </form>
 
