@@ -6,6 +6,7 @@ import com.Library2JPA.repo.BooksRepository;
 import com.Library2JPA.repo.PeopleRepository;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,8 +24,10 @@ public class BooksService {
     }
 
     public List<Book> findAll(){
-
         return booksRepository.findAll();
+    }
+    public List<Book> findAllOnPage(int page, int booksPerPage){
+        return booksRepository.findAll(PageRequest.of(page, booksPerPage)).getContent();
     }
 
     public Book findOne(int id){

@@ -31,8 +31,11 @@ public class BooksController {
     @GetMapping()
     public String allBooks(Model model, @RequestParam(value = "page", required = false) Integer page,
                            @RequestParam(value = "booksPerPage", required = false) Integer booksPerPage){
-        System.out.println(page+",  "+booksPerPage);
-        model.addAttribute("books", booksService.findAll());
+        if(page==null||booksPerPage==null) {
+            model.addAttribute("books", booksService.findAll());
+        } else {
+            model.addAttribute("books", booksService.findAllOnPage(page, booksPerPage));
+        }
         return "library/books/index";
     }
 
