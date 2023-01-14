@@ -7,6 +7,7 @@ import com.Library2JPA.repo.PeopleRepository;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,11 +24,18 @@ public class BooksService {
         this.booksRepository = booksRepository;
     }
 
-    public List<Book> findAll(){
+    public List<Book> findAll(Integer page, Integer booksPerPage, Boolean sortByYear){
+        if (page==null&&booksPerPage==null) {
+            if (sortByYear==null)
+                return booksRepository.findAll();
+            return booksRepository.findAll(Sort.by("yearOfPublication"));
+        }
+        if (page!=null&&booksPerPage!=null){
+            if (sortByYear==null)
+                return booksRepository.findAll(PageRequest.of(page, booksPerPage)).getContent();
+            return booksRepository.findAll(PageRequest.of(page, booksPerPage, Sort.by("yearOfPublication"))).getContent();
+        }
         return booksRepository.findAll();
-    }
-    public List<Book> findAllOnPage(int page, int booksPerPage){
-        return booksRepository.findAll(PageRequest.of(page, booksPerPage)).getContent();
     }
 
     public Book findOne(int id){
