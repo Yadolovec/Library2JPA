@@ -1,17 +1,18 @@
 package com.Library2JPA.utils;
 
-import com.Library2JPA.dao.PersonDAO;
+//import com.Library2JPA.dao.PersonDAO;
 import com.Library2JPA.models.Person;
+import com.Library2JPA.services.PeopleService;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
 @Component
 public class PersonValidator implements Validator {
-    private final PersonDAO personDAO;
+    private final PeopleService peopleService;
 
-    public PersonValidator(PersonDAO personDAO) {
-        this.personDAO = personDAO;
+    public PersonValidator(PeopleService peopleService) {
+        this.peopleService = peopleService;
     }
 
     @Override

@@ -3,12 +3,13 @@ package com.Library2JPA.services;
 import com.Library2JPA.models.Book;
 import com.Library2JPA.models.Person;
 import com.Library2JPA.repo.BooksRepository;
-import org.hibernate.Hibernate;
+import com.Library2JPA.repo.PeopleRepository;
+import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Date;
+import javax.persistence.EntityManager;
 import java.util.List;
 import java.util.Optional;
 
@@ -68,4 +69,6 @@ public class BooksService {
         book.get().setOwner(person);
         booksRepository.save(book.get());
     }
+
+
 }

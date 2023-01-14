@@ -1,6 +1,5 @@
 package com.Library2JPA.controller;
 
-import com.Library2JPA.dao.PersonDAO;
 import com.Library2JPA.models.Book;
 import com.Library2JPA.models.Person;
 import com.Library2JPA.services.BooksService;
@@ -9,10 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.HttpRequestHandler;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.util.Optional;
 
 @Controller
 @RequestMapping("/lib/books")
@@ -20,18 +20,18 @@ public class BooksController {
 
     private final BooksService booksService;
     private final PeopleService peopleService;
-    private final PersonDAO personDAO;
     @Autowired
-    public BooksController(BooksService booksService, PeopleService peopleService, PersonDAO personDAO) {
+    public BooksController(BooksService booksService, PeopleService peopleService) {
 
         this.booksService = booksService;
         this.peopleService = peopleService;
-        this.personDAO = personDAO;
     }
 
 
     @GetMapping()
-    public String allBooks(Model model){
+    public String allBooks(Model model, @RequestParam(value = "page", required = false) Integer page,
+                           @RequestParam(value = "booksPerPage", required = false) Integer booksPerPage){
+        System.out.println(page+",  "+booksPerPage);
         model.addAttribute("books", booksService.findAll());
         return "library/books/index";
     }
@@ -56,14 +56,12 @@ public class BooksController {
     public String editBook(Model model, @PathVariable("id") int id){
 
         Book book = booksService.findOne(id);
-        model.addAttribute("book", book);
-        model.addAttribute("people", personDAO.index());
-        model.addAttribute("newOwner", new Person());
         Person owner = booksService.getBookOwner(id);
 
-        model.addAttribute("person", owner);
-
-
+        model.addAttribute("book", book);
+        model.addAttribute("owner", owner);
+        model.addAttribute("people", peopleService.findAll());
+        model.addAttribute("newOwner", new Person());
 
         return "library/books/show";
     }

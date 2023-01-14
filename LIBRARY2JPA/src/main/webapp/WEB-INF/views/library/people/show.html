@@ -14,7 +14,7 @@
   <br/>
 
 
-  <some th:if="${books!=null}" >
+  <some th:if="${!books.isEmpty()}" >
       <a>User have these books:</a>
       <br/>
       <div th:each="book : ${books}">
@@ -23,7 +23,7 @@
       </div>
   </some>
 
-  <some th:unless="${books!=null}" >
+  <some th:if="${books.isEmpty()}" >
       <a>User have no books</a>
   </some>
 

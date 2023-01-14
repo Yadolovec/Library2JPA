@@ -29,13 +29,10 @@
     <br/>
     <br/>
 
-    <div th:if="${book.getOwner()!=null}">
-        <a>Book is taken by: </a>
-        <a th:text="${person.getName()}">NAME PERSON</a>
-    </div>
     <form   th:if="${book.getOwner()!=null}"
             th:method="PATCH", th:action="@{/lib/books/{id}/free(id=${book.getId()})}" >
-        <br/>
+        <a>Book is taken by: </a>
+        <a th:text="${owner.getName()}">NAME PERSON</a>
         <input type="submit" value="FREE this book"/>
     </form>
 
@@ -46,8 +43,8 @@
     <form th:method="PATCH"
           th:action="@{/lib/books/{id}/newOwner(id=${book.getId()})}"
           th:unless="${book.getOwner()!=null}">
-        <label for="person">Choose the worthy</label>
-        <select id="person" th:object="${newOwner}" th:field="*{id}">
+        <label for="owner">Choose the worthy</label>
+        <select id="owner" th:object="${newOwner}" th:field="*{id}">
             <option th:each="newOwner : ${people}" th:value="${newOwner.getId()}" th:text="${newOwner.getName()}">
                 CHOOSE NEW OWNER
             </option>
