@@ -83,6 +83,18 @@ public class Book {
         return toReturn;
     }
 
+    public String forShowWithOwner(){
+        String toReturn = bookName;
+
+        if (!author.isEmpty())
+            toReturn=toReturn+", by "+author;
+        if (yearOfPublication!=null)
+            toReturn=toReturn+", "+yearOfPublication;
+        if (owner!=null)
+            toReturn=toReturn+", owned by "+owner.getName();
+        return toReturn;
+    }
+
     public Person getOwner() {
         return owner;
     }

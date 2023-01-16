@@ -12,7 +12,7 @@
 </form>
 <div th:if="${books!=null}" th:each="book : ${books}">
     <a th:href="@{/lib/books/{id}(id=${book.getId()})}"
-       th:text="${book.forShow()}">BOOK</a>
+       th:text="${book.forShowWithOwner()}">BOOK</a>
 </div>
 <a th:if="${books.isEmpty()}">Nothing is found</a>
 </body>
