@@ -110,12 +110,17 @@ public class BooksController {
 
     @GetMapping("/search")
     public String search(Model model){
-        model.addAttribute("request", new Text());
+//        model.addAttribute("request", new Text());
         return "/library/books/search";
     }
     @PostMapping("/search")
-    public String found(@ModelAttribute("request") Text text, Model model) {
-        model.addAttribute("books", booksService.findLike(text.getText()));
+    public String found(
+//          @ModelAttribute("request") Text text,
+            @RequestParam("query") String query,
+            Model model) {
+//        model.addAttribute("books", booksService.findLike(text.getText()));
+        model.addAttribute("books", booksService.findLike(query));
+
         return "/library/books/search";
     }
 

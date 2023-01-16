@@ -5,9 +5,10 @@
     <title>Search page</title>
 </head>
 <body>
-<form th:method="POST" th:action="@{/lib/books/search}" th:object="${request}">
-    <label for="find">Find</label>
-    <input id="find" type="text" th:field="*{text}"/>
+<form th:method="POST" th:action="@{/lib/books/search}" >
+<!--      th:object="${request}"-->
+    <label for="query">Find</label>
+    <input id="query" type="text" name="query"/>
     <input type="submit" value="search">
 </form>
 <div th:if="${books!=null}" th:each="book : ${books}">
