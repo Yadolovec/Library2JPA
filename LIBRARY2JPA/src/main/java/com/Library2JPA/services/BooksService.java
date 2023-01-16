@@ -81,5 +81,9 @@ public class BooksService {
         booksRepository.save(book.get());
     }
 
+    public List<Book> findLike(String searchRequest){
+        return booksRepository.findByBookNameStartingWith(searchRequest);
+    }
+
 
 }

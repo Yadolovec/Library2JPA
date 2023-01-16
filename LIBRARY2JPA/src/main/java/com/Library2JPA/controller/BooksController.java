@@ -4,6 +4,7 @@ import com.Library2JPA.models.Book;
 import com.Library2JPA.models.Person;
 import com.Library2JPA.services.BooksService;
 import com.Library2JPA.services.PeopleService;
+import com.Library2JPA.utils.Text;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,8 +33,8 @@ public class BooksController {
     public String allBooks(Model model, @RequestParam(value = "page", required = false) Integer page,
                            @RequestParam(value = "booksPerPage", required = false) Integer booksPerPage,
                            @RequestParam(value = "sortByYear", required = false) Boolean sortByYear){
-        model.addAttribute("books", booksService.findAll(page, booksPerPage, sortByYear));
 
+        model.addAttribute("books", booksService.findAll(page, booksPerPage, sortByYear));
         return "library/books/index";
     }
 
@@ -106,4 +107,17 @@ public class BooksController {
         booksService.newOwner(id, person);
         return "redirect:/lib/books/"+id;
     }
-}
+
+    @GetMapping("/search")
+    public String search(Model model){
+        model.addAttribute("request", new Text());
+        return "/library/books/search";
+    }
+    @PostMapping("/search")
+    public String found(@ModelAttribute("request") Text text, Model model) {
+        model.addAttribute("books", booksService.findLike(text.getText()));
+        return "/library/books/search";
+    }
+
+
+    }

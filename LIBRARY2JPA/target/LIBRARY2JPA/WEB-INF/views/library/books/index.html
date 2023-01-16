@@ -7,12 +7,11 @@
 <body>
 <a href="/lib/people">Go to people</a>
 <br/>
+<a href="/lib/books/search">Search</a>
 <hr/>
 <div th:each="book : ${books}">
   <a th:href="@{/lib/books/{id}(id=${book.getId()})}"
      th:text="${book.forShow()}">BOOK</a>
-
-
 </div>
 
 <br/>
