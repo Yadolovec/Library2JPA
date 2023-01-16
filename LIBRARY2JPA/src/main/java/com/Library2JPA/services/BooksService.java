@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -78,6 +79,7 @@ public class BooksService {
     public void newOwner(int id, Person person){
         Optional<Book> book = booksRepository.findById(id);
         book.get().setOwner(person);
+        book.get().setTakenAt(new Date());
         booksRepository.save(book.get());
     }
 

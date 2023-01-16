@@ -2,6 +2,8 @@ package com.Library2JPA.models;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import java.util.Calendar;
+import java.util.Date;
 
 @Entity
 @Table(name = "book")
@@ -27,6 +29,11 @@ public class Book {
     @ManyToOne
     @JoinColumn(name = "person_id", referencedColumnName = "id")
     private Person owner;
+
+    @Column(name = "taken_at")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date takenAt;
+
 
     public Book(String bookName, String author, Integer yearOfPublication) {
 
@@ -83,6 +90,22 @@ public class Book {
         return toReturn;
     }
 
+    public Person getOwner() {
+        return owner;
+    }
+
+    public void setOwner(Person owner) {
+        this.owner = owner;
+    }
+
+    public Date getTakenAt() {
+        return takenAt;
+    }
+
+    public void setTakenAt(Date takenAt) {
+        this.takenAt = takenAt;
+    }
+
     public String forShowWithOwner(){
         String toReturn = bookName;
 
@@ -95,11 +118,12 @@ public class Book {
         return toReturn;
     }
 
-    public Person getOwner() {
-        return owner;
-    }
 
-    public void setOwner(Person owner) {
-        this.owner = owner;
+
+    public boolean isOverdue(){
+        if (takenAt==null)
+            return false;
+        // 10 days in milliseconds
+        return (takenAt.getTime() + 864000000 - (new Date().getTime())) < 0;
     }
 }
