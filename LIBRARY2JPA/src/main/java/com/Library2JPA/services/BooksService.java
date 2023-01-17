@@ -66,6 +66,8 @@ public class BooksService {
         Optional<Book> book = booksRepository.findById(id);
 
         return book.get().getOwner();
+//        ITS WHAT OTHER PROPOSE
+//        return booksRepository.findById(id).map(Book::getOwner).orElse(null);
     }
 
     @Transactional
