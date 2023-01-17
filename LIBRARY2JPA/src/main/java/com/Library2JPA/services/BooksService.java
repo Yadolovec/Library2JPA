@@ -74,7 +74,16 @@ public class BooksService {
     public void freeTheBook(int id){
         Optional<Book> book = booksRepository.findById(id);
         book.get().setOwner(null);
-        booksRepository.save(book.get());
+
+
+        // better way
+//        booksRepository.findById(id).ifPresent(
+//                book1->{
+//                book1.setOwner(null);
+//                });
+
+        // not neccesarily
+//        booksRepository.save(book.get());
     }
 
     @Transactional
